@@ -112,6 +112,25 @@ namespace kOS.Module
                                          "an opcode is executed in the virtual machine.  Very laggy.")]
         public bool debugEachOpcode = false;
 
+        public const int TAGWINDOW_MARGIN = 10;
+        private const int tagWindowWidthMin = 200;
+        private const int tagWindowWidthMax = 1920;
+        private int tagWindowWidth = 200;
+
+        [GameParameters.CustomIntParameterUI("Name Tag Window Width", minValue = tagWindowWidthMin, maxValue = tagWindowWidthMax,
+                                            toolTip = "Specifies the width of the Name Tag Window.")]
+        public int TagWindowWidth
+        {
+            get
+            {
+                return Math.Min(UnityEngine.Screen.width - TAGWINDOW_MARGIN * 2, tagWindowWidth);
+            }
+            set
+            {
+                tagWindowWidth = Math.Max(tagWindowWidthMin, Math.Min(Math.Min(UnityEngine.Screen.width - TAGWINDOW_MARGIN * 2, tagWindowWidthMax), value));
+            }
+        }
+
         public override GameParameters.GameMode GameMode
         {
             get

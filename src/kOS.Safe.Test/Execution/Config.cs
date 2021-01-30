@@ -198,6 +198,19 @@ namespace kOS.Safe.Test
             {
             }
         }
+
+        public int TagWindowWidth
+        {
+            get
+            {
+                return 200;
+            }
+
+            set
+            {
+            }
+        }
+
         public DateTime TimeStamp
         {
             get

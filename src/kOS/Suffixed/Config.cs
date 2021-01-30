@@ -34,6 +34,7 @@ namespace kOS.Suffixed
         public bool UseBlizzyToolbarOnly { get { return kOSCustomParameters.Instance.useBlizzyToolbarOnly; } set { kOSCustomParameters.Instance.useBlizzyToolbarOnly = value; } }
         public bool DebugEachOpcode { get { return kOSCustomParameters.Instance.debugEachOpcode; } set { kOSCustomParameters.Instance.debugEachOpcode = value; } }
         public bool SuppressAutopilot { get { return GetPropValue<bool>(PropId.SuppressAutopilot); } set { SetPropValue(PropId.SuppressAutopilot, value); } }
+        public int TagWindowWidth { get { return kOSCustomParameters.Instance.TagWindowWidth; } set { kOSCustomParameters.Instance.TagWindowWidth = value; } }
 
         // NOTE TO FUTURE MAINTAINERS:  If it looks like overkill to use a double instead of a float for this next field, you're right.
         // But KSP seems to have a bug where single-precision floats don't get saved in the config XML file.  Doubles seem to work, though.
@@ -53,6 +54,7 @@ namespace kOS.Suffixed
         private void InitializeSuffixes()
         {
             AddSuffix("IPU", new SetSuffix<ScalarValue>(() => InstructionsPerUpdate, value => InstructionsPerUpdate = value));
+            AddSuffix("TAGWINDOWWIDTH", new SetSuffix<ScalarValue>(() => TagWindowWidth, value => TagWindowWidth = value));
             AddSuffix("UCP", new SetSuffix<BooleanValue>(() => UseCompressedPersistence, value => UseCompressedPersistence = value));
             AddSuffix("STAT", new SetSuffix<BooleanValue>(() => ShowStatistics, value => ShowStatistics = value));
             AddSuffix("ARCH", new SetSuffix<BooleanValue>(() => StartOnArchive, value => StartOnArchive = value));
@@ -254,7 +256,8 @@ namespace kOS.Suffixed
             TerminalBrightness = 17,
             TerminalDefaultWidth = 18,
             TerminalDefaultHeight = 19,
-            SuppressAutopilot = 20
+            SuppressAutopilot = 20,
+            TagWindowWidth = 21
         }
     }
 }

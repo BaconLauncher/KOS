@@ -1,6 +1,7 @@
-﻿using kOS.Utilities;
+using kOS.Utilities;
 using UnityEngine;
 using kOS.Module;
+using kOS.Safe.Utilities;
 using System;
 
 namespace kOS.Screen
@@ -26,14 +27,20 @@ namespace kOS.Screen
             
             Vector3 screenPos = GetViewportPosFor(attachedModule.part.transform.position);
 
+            const float MARGIN = kOSCustomParameters.TAGWINDOW_MARGIN;
+            const float WINDOW_HEIGHT = 130;
+            float windowWidth = SafeHouse.Config.TagWindowWidth;
+
+            float maxScreenPosX = (UnityEngine.Screen.width - windowWidth - MARGIN);
+            float maxScreenPosY = (UnityEngine.Screen.height - WINDOW_HEIGHT - MARGIN);
+
             // screenPos is in coords from 0 to 1, 0 to 1, not screen pixel coords.
             // Transform it to pixel coords:
-            float xPixelPoint = screenPos.x * UnityEngine.Screen.width;
-            float yPixelPoint = (1-screenPos.y) * UnityEngine.Screen.height;
-            const float WINDOW_WIDTH = 200;
+            float xPixelPoint = Math.Max(MARGIN, Math.Min(maxScreenPosX, screenPos.x * UnityEngine.Screen.width - windowWidth / 2));
+            float yPixelPoint = Math.Max(MARGIN, Math.Min(maxScreenPosY, (1 -screenPos.y) * UnityEngine.Screen.height));
 
-            // windowRect = new Rect(xPixelWindow, yPixelPoint, windowWidth, 130);
-            windowRect = new Rect(xPixelPoint, yPixelPoint, WINDOW_WIDTH, 130);
+            // windowRect = new Rect(xPixelWindow, yPixelPoint, windowWidth, WINDOW_HEIGHT);
+            windowRect = new Rect(xPixelPoint, yPixelPoint, windowWidth, WINDOW_HEIGHT);
 
             // Please don't delete these.  They're not being used, but that's because we haven't
             // finished prettying up the interface with the tag line and so the coords aren't
@@ -151,6 +158,11 @@ namespace kOS.Screen
                 {
                     e.Use();
                     attachedModule.TypingDone(tagValue);
+                    Close();
+                }
+                else if (e.keyCode == KeyCode.Escape)
+                {
+                    e.Use();
                     Close();
                 }
             }

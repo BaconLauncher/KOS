@@ -24,6 +24,7 @@ namespace kOS.Safe.Encapsulation
         int TerminalDefaultWidth { get; set; }
         int TerminalDefaultHeight { get; set; }
         bool SuppressAutopilot { get; set; }
+        int TagWindowWidth { get; set; }
 
 
         /// <summary>

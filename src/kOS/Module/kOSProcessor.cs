@@ -468,8 +468,8 @@ namespace kOS.Module
 
             foreach (KeyValuePair<string, VolumeItem> pair in files)
             {
-                if (pair.Value is VolumeFile && (pair.Value.Extension.Equals(Volume.KERBOSCRIPT_EXTENSION)
-                    || pair.Value.Extension.Equals(Volume.KOS_MACHINELANGUAGE_EXTENSION)))
+                if (pair.Value is VolumeFile && (pair.Value.Extension.ToLower().Equals(Volume.KERBOSCRIPT_EXTENSION)
+                    || pair.Value.Extension.ToLower().Equals(Volume.KOS_MACHINELANGUAGE_EXTENSION)))
                 {
                     result.Add(pair.Value.Path);
                 }
